@@ -5,9 +5,8 @@ import { Github, Linkedin, Mail, Send, CheckCircle2, Loader2 } from "lucide-reac
 import AnimatedSection from "./AnimatedSection";
 
 // ── Web3Forms ───────────────────────────────────────────────
-// Get your free access key at https://web3forms.com
-// After signing up with raghavmittal434@gmail.com, paste the key below.
-const WEB3FORMS_KEY = "2bae9f4d-b0bc-47d2-ab60-3614b432c7f8";
+// Set NEXT_PUBLIC_WEB3FORMS_KEY in your Vercel Environment Variables
+const WEB3FORMS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "";
 
 export default function Contact() {
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
