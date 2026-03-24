@@ -4,6 +4,8 @@ import "./globals.css";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SmoothScroll from "@/components/SmoothScroll";
+import ThemeProvider from "@/components/ThemeProvider";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -12,13 +14,13 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Raghav Mittal — AI/ML Engineer & Automation Specialist",
+  title: "Raghav Mittal",
   description:
-    "Portfolio of Raghav Mittal — Engineering intelligence through Computer Vision & Automation. Building scalable AI solutions that bridge the gap between data and decision-making.",
+    "Engineering intelligence through latent space exploration. AI/ML Engineer specializing in Computer Vision, Automation, and scalable AI solutions.",
   openGraph: {
-    title: "Raghav Mittal — AI/ML Engineer & Automation Specialist",
+    title: "Raghav Mittal",
     description:
-      "Engineering intelligence through Computer Vision & Automation.",
+      "Engineering intelligence through latent space exploration.",
     type: "website",
   },
 };
@@ -29,11 +31,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body className={`${spaceGrotesk.variable} antialiased`}>
-        <Header />
-        <main className="flex-grow">{children}</main>
-        <Footer />
+        <ThemeProvider>
+          <SmoothScroll>
+            <Header />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+          </SmoothScroll>
+        </ThemeProvider>
       </body>
     </html>
   );

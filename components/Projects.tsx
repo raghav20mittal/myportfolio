@@ -1,133 +1,136 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Code2, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 
 interface Project {
     title: string;
-    description: React.ReactNode;
-    tags: { label: string; color: string }[];
+    date: string;
+    description: string;
+    accuracy: number;
+    accLabel: string;
+    tags: string[];
     codeUrl: string;
-    gradient: string;
+    details: string[];
 }
 
 const projects: Project[] = [
     {
         title: "Invisible Cloak",
-        description: (
-            <>
-                A real-time computer vision application that creates an invisibility
-                effect by masking specific colors in a video stream. Achieved{" "}
-                <span className="text-[#0d83f2] font-semibold">
-                    85% background masking accuracy
-                </span>{" "}
-                under variable lighting conditions.
-            </>
-        ),
-        tags: [
-            { label: "OpenCV", color: "blue" },
-            { label: "Python", color: "yellow" },
-            { label: "NumPy", color: "green" },
-        ],
+        date: "Apr 2024",
+        description:
+            "Built a real-time invisibility effect using OpenCV and HSV color masking techniques with 85% accuracy in varying lighting conditions.",
+        accuracy: 85,
+        accLabel: "85% Accuracy",
+        tags: ["OpenCV", "NumPy", "Real-time Video Processing"],
         codeUrl: "https://github.com/raghav20mittal",
-        gradient: "from-blue-600/20 via-transparent to-transparent",
+        details: [
+            "Implemented background subtraction algorithms to create seamless visual effects with minimal artifacts.",
+        ],
     },
     {
         title: "Hand Sign Recognition",
-        description: (
-            <>
-                Developed a robust hand gesture recognition system for sign language
-                translation. Utilized MediaPipe for landmark detection and TensorFlow
-                for classification, achieving{" "}
-                <span className="text-[#0d83f2] font-semibold">98% accuracy</span>.
-            </>
-        ),
-        tags: [
-            { label: "TensorFlow", color: "orange" },
-            { label: "MediaPipe", color: "teal" },
-            { label: "CNN", color: "blue" },
-        ],
+        date: "Feb 2024",
+        description:
+            "Developed a real-time hand gesture recognition system using MediaPipe hand tracking with 98% landmark detection accuracy.",
+        accuracy: 98,
+        accLabel: "98% Accuracy",
+        tags: ["OpenCV", "MediaPipe", "Pandas", "NumPy", "Scikit-learn", "Matplotlib"],
         codeUrl: "https://github.com/raghav20mittal",
-        gradient: "from-purple-600/20 via-transparent to-transparent",
+        details: [
+            "Created a dataset of 2,600+ hand gesture images to train and validate the model.",
+        ],
     },
 ];
 
-const tagColors: Record<string, string> = {
-    blue: "bg-blue-500/10 text-blue-400 border-blue-500/20",
-    yellow: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
-    green: "bg-green-500/10 text-green-400 border-green-500/20",
-    orange: "bg-orange-500/10 text-orange-400 border-orange-500/20",
-    teal: "bg-teal-500/10 text-teal-400 border-teal-500/20",
-};
+function TrainingGauge({ accuracy, active }: { accuracy: number; active: boolean }) {
+    const radius = 36;
+    const circumference = 2 * Math.PI * radius;
+    const offset = circumference - (accuracy / 100) * circumference;
+
+    return (
+        <div className="relative w-24 h-24 flex items-center justify-center">
+            <svg className="w-full h-full -rotate-90" viewBox="0 0 80 80">
+                <circle cx="40" cy="40" r={radius} fill="none" stroke="var(--glass-border)" strokeWidth="3" />
+                <circle
+                    cx="40" cy="40" r={radius} fill="none"
+                    stroke={active ? "var(--text-primary)" : "var(--glass-border)"}
+                    strokeWidth="3" strokeLinecap="round"
+                    strokeDasharray={circumference}
+                    strokeDashoffset={active ? offset : circumference}
+                    className="gauge-ring"
+                    style={{ filter: active ? "drop-shadow(0 0 6px var(--glow))" : "none", opacity: active ? 0.8 : 0.3 }}
+                />
+            </svg>
+            <span className="absolute text-sm font-bold transition-colors duration-500" style={{ color: active ? "var(--text-primary)" : "var(--text-muted)" }}>
+                {active ? `${accuracy}%` : "—"}
+            </span>
+        </div>
+    );
+}
 
 export default function Projects() {
-    return (
-        <section id="projects" className="py-24 relative overflow-hidden">
-            {/* Dot grid background */}
-            <div className="absolute inset-0 dot-grid opacity-40" />
+    const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
+    return (
+        <section id="projects" className="py-28 relative overflow-hidden">
+            <div className="absolute inset-0 dot-grid opacity-30" />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <AnimatedSection>
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl font-bold mb-4 text-white">
-                            Key Projects
-                        </h2>
-                        <p className="text-slate-500 max-w-2xl mx-auto">
-                            Showcasing practical applications of Computer Vision and Machine
-                            Learning.
-                        </p>
+                        <p className="section-label mb-4">REPOSITORY :: ACTIVE</p>
+                        <h2 className="text-3xl sm:text-4xl font-bold text-glow tracking-wide" style={{ color: "var(--text-primary)" }}>ACTIVE REPOSITORIES</h2>
                     </div>
                 </AnimatedSection>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {projects.map((project, index) => (
                         <AnimatedSection key={project.title} delay={index * 0.15}>
                             <motion.div
+                                onMouseEnter={() => setHoveredIdx(index)}
+                                onMouseLeave={() => setHoveredIdx(null)}
                                 whileHover={{ y: -4 }}
-                                transition={{ duration: 0.3 }}
-                                className="glass-card rounded-2xl overflow-hidden group flex flex-col h-full"
+                                className="glass rounded-2xl overflow-hidden group flex flex-col h-full"
                             >
-                                {/* Gradient Header */}
-                                <div className="h-44 relative overflow-hidden">
-                                    <div
-                                        className={`absolute inset-0 bg-gradient-to-br ${project.gradient}`}
-                                    />
+                                <div className="h-48 relative overflow-hidden" style={{ background: "var(--glass-bg)" }}>
                                     <div className="absolute inset-0 flex items-center justify-center">
-                                        <Code2 className="w-16 h-16 text-white/10 group-hover:text-white/20 transition-colors duration-500" />
+                                        <div className="w-32 h-32 rounded-full blur-xl" style={{ background: "var(--glow)" }} />
                                     </div>
-                                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] to-transparent opacity-80" />
+                                    <div className="absolute inset-0 opacity-90" style={{ background: `linear-gradient(to top, var(--bg), transparent)` }} />
                                 </div>
 
-                                {/* Content */}
                                 <div className="p-6 flex flex-col flex-grow">
                                     <div className="flex justify-between items-start mb-4">
-                                        <h3 className="text-2xl font-bold text-white group-hover:text-[#0d83f2] transition-colors">
-                                            {project.title}
-                                        </h3>
-                                        <a
-                                            href={project.codeUrl}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="p-2 bg-white/[0.04] hover:bg-[#0d83f2] rounded-full text-white transition-colors flex-shrink-0"
-                                            title="View Code"
-                                        >
-                                            <ExternalLink className="w-4 h-4" />
-                                        </a>
+                                        <div>
+                                            <p className="section-label mb-1">{project.accLabel} · {project.date}</p>
+                                            <h3 className="text-xl font-bold transition-colors" style={{ color: "var(--text-primary)" }}>
+                                                {project.title}
+                                            </h3>
+                                        </div>
+                                        <div className="flex items-center gap-3">
+                                            <TrainingGauge accuracy={project.accuracy} active={hoveredIdx === index} />
+                                            <a
+                                                href={project.codeUrl} target="_blank" rel="noopener noreferrer"
+                                                className="p-2 rounded-full transition-colors"
+                                                style={{ background: "var(--tag-bg)", color: "var(--text-muted)" }}
+                                                title="View Code"
+                                            >
+                                                <ExternalLink className="w-3.5 h-3.5" />
+                                            </a>
+                                        </div>
                                     </div>
 
-                                    <p className="text-slate-400 mb-6 flex-grow text-sm leading-relaxed">
-                                        {project.description}
-                                    </p>
+                                    <p className="mb-2 text-sm leading-relaxed" style={{ color: "var(--text-body)" }}>{project.description}</p>
+                                    {project.details.map((d, i) => (
+                                        <p key={i} className="mb-4 text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>• {d}</p>
+                                    ))}
 
                                     <div className="flex flex-wrap gap-2 mt-auto">
                                         {project.tags.map((tag) => (
-                                            <span
-                                                key={tag.label}
-                                                className={`px-3 py-1 text-xs font-semibold rounded-full border ${tagColors[tag.color]
-                                                    }`}
-                                            >
-                                                {tag.label}
+                                            <span key={tag} className="px-2.5 py-1 text-[10px] font-medium tracking-wider rounded" style={{ background: "var(--tag-bg)", color: "var(--tag-text)", border: `1px solid var(--tag-border)` }}>
+                                                {tag}
                                             </span>
                                         ))}
                                     </div>

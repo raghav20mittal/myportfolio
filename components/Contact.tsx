@@ -1,11 +1,9 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import { Github, Linkedin, Mail, Send, CheckCircle2, Loader2 } from "lucide-react";
+import { Send, Loader2, CheckCircle2 } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 
-// ── Web3Forms ───────────────────────────────────────────────
-// Set NEXT_PUBLIC_WEB3FORMS_KEY in your Vercel Environment Variables
 const WEB3FORMS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "";
 
 export default function Contact() {
@@ -14,7 +12,6 @@ export default function Contact() {
     async function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setStatus("loading");
-
         const form = e.currentTarget;
         const data = new FormData(form);
         data.append("access_key", WEB3FORMS_KEY);
@@ -38,136 +35,75 @@ export default function Contact() {
     }
 
     return (
-        <section id="contact" className="py-24 bg-[#0d83f2]/[0.03] border-t border-white/[0.04]">
+        <section id="contact" className="py-28 relative">
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
                 <AnimatedSection>
-                    <div className="text-center mb-10">
-                        <h2 className="text-3xl font-bold mb-4 text-white">
-                            Let&apos;s Connect
+                    <div className="mb-12">
+                        <p className="section-label mb-4">TRANSMISSION PROTOCOL</p>
+                        <h2 className="text-3xl sm:text-4xl font-bold text-glow" style={{ color: "var(--text-primary)" }}>
+                            INITIATE_CONTACT
                         </h2>
-                        <p className="text-slate-500">
-                            Interested in working together? Drop me a line.
+                        <p className="text-sm mt-3" style={{ color: "var(--text-muted)" }}>
+                            Open for research collaborations and engineering inquiries.
                         </p>
                     </div>
                 </AnimatedSection>
 
                 <AnimatedSection delay={0.15}>
-                    <div className="glass-card p-8 rounded-2xl">
-                        <form className="space-y-6" onSubmit={handleSubmit}>
-                            {/* Hidden field for Web3Forms recipient */}
-                            <input type="hidden" name="from_name" value="Portfolio Contact Form" />
-                            <input type="hidden" name="subject" value="New message from your portfolio" />
+                    <div className="glass rounded-2xl p-6 sm:p-8">
+                        <form className="space-y-5" onSubmit={handleSubmit}>
+                            <input type="hidden" name="from_name" value="Portfolio Contact" />
+                            <input type="hidden" name="subject" value="New message from portfolio" />
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                 <div>
-                                    <label
-                                        htmlFor="name"
-                                        className="block text-sm font-medium text-slate-400 mb-2"
-                                    >
+                                    <label htmlFor="name" className="block text-[11px] font-medium tracking-wider mb-2 uppercase" style={{ color: "var(--text-muted)" }}>
                                         Name
                                     </label>
                                     <input
-                                        type="text"
-                                        id="name"
-                                        name="name"
-                                        required
+                                        type="text" id="name" name="name" required
                                         placeholder="John Doe"
-                                        className="w-full px-4 py-3 bg-[#0a0a0a]/60 border border-white/[0.06] rounded-lg text-white focus:outline-none focus:border-[#0d83f2] focus:ring-1 focus:ring-[#0d83f2] transition-colors placeholder-slate-600"
+                                        className="w-full px-4 py-3 rounded-lg text-sm focus:outline-none transition-colors"
+                                        style={{ background: "var(--input-bg)", border: `1px solid var(--input-border)`, color: "var(--text-primary)" }}
                                     />
                                 </div>
                                 <div>
-                                    <label
-                                        htmlFor="email"
-                                        className="block text-sm font-medium text-slate-400 mb-2"
-                                    >
+                                    <label htmlFor="email" className="block text-[11px] font-medium tracking-wider mb-2 uppercase" style={{ color: "var(--text-muted)" }}>
                                         Email
                                     </label>
                                     <input
-                                        type="email"
-                                        id="email"
-                                        name="email"
-                                        required
+                                        type="email" id="email" name="email" required
                                         placeholder="john@example.com"
-                                        className="w-full px-4 py-3 bg-[#0a0a0a]/60 border border-white/[0.06] rounded-lg text-white focus:outline-none focus:border-[#0d83f2] focus:ring-1 focus:ring-[#0d83f2] transition-colors placeholder-slate-600"
+                                        className="w-full px-4 py-3 rounded-lg text-sm focus:outline-none transition-colors"
+                                        style={{ background: "var(--input-bg)", border: `1px solid var(--input-border)`, color: "var(--text-primary)" }}
                                     />
                                 </div>
                             </div>
                             <div>
-                                <label
-                                    htmlFor="message"
-                                    className="block text-sm font-medium text-slate-400 mb-2"
-                                >
+                                <label htmlFor="message" className="block text-[11px] font-medium tracking-wider mb-2 uppercase" style={{ color: "var(--text-muted)" }}>
                                     Message
                                 </label>
                                 <textarea
-                                    id="message"
-                                    name="message"
-                                    required
+                                    id="message" name="message" required rows={4}
                                     placeholder="Tell me about your project..."
-                                    rows={4}
-                                    className="w-full px-4 py-3 bg-[#0a0a0a]/60 border border-white/[0.06] rounded-lg text-white focus:outline-none focus:border-[#0d83f2] focus:ring-1 focus:ring-[#0d83f2] transition-colors placeholder-slate-600 resize-none"
+                                    className="w-full px-4 py-3 rounded-lg text-sm focus:outline-none transition-colors resize-none"
+                                    style={{ background: "var(--input-bg)", border: `1px solid var(--input-border)`, color: "var(--text-primary)" }}
                                 />
                             </div>
 
                             <button
                                 type="submit"
                                 disabled={status === "loading" || status === "success"}
-                                className="w-full py-4 bg-[#0d83f2] text-white font-bold rounded-lg hover:bg-[#0a6abf] transition-colors shadow-lg shadow-[#0d83f2]/15 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                                className="w-full py-3.5 text-sm font-bold rounded-lg transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                                style={{ background: "var(--btn-primary-bg)", color: "var(--btn-primary-text)" }}
                             >
-                                {status === "loading" && <Loader2 className="w-5 h-5 animate-spin" />}
-                                {status === "success" && <CheckCircle2 className="w-5 h-5" />}
-                                {status === "idle" && <Send className="w-4 h-4" />}
-                                {status === "error" && <Send className="w-4 h-4" />}
-                                {status === "loading"
-                                    ? "Sending..."
-                                    : status === "success"
-                                        ? "Message Sent!"
-                                        : status === "error"
-                                            ? "Try Again"
-                                            : "Send Message"}
+                                {status === "loading" && <Loader2 className="w-4 h-4 animate-spin" />}
+                                {status === "success" && <CheckCircle2 className="w-4 h-4" />}
+                                {status === "idle" && <Send className="w-3.5 h-3.5" />}
+                                {status === "error" && <Send className="w-3.5 h-3.5" />}
+                                {status === "loading" ? "TRANSMITTING..." : status === "success" ? "TRANSMITTED" : status === "error" ? "RETRY" : "TRANSMIT"}
                             </button>
-
-                            {status === "error" && (
-                                <p className="text-red-400 text-sm text-center">
-                                    Something went wrong. Please try again or email me directly.
-                                </p>
-                            )}
                         </form>
-
-                        {/* Social Links */}
-                        <div className="mt-10 flex justify-center gap-10 border-t border-white/[0.04] pt-8">
-                            <a
-                                href="https://github.com/raghav20mittal"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-slate-500 hover:text-white transition-colors flex flex-col items-center gap-2 group"
-                            >
-                                <span className="p-3 rounded-full bg-white/[0.03] group-hover:bg-[#0d83f2]/10 transition-colors">
-                                    <Github className="w-5 h-5" />
-                                </span>
-                                <span className="text-xs">GitHub</span>
-                            </a>
-                            <a
-                                href="https://linkedin.com/in/raghavmittal20"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-slate-500 hover:text-white transition-colors flex flex-col items-center gap-2 group"
-                            >
-                                <span className="p-3 rounded-full bg-white/[0.03] group-hover:bg-[#0d83f2]/10 transition-colors">
-                                    <Linkedin className="w-5 h-5" />
-                                </span>
-                                <span className="text-xs">LinkedIn</span>
-                            </a>
-                            <a
-                                href="mailto:raghavmittal434@gmail.com"
-                                className="text-slate-500 hover:text-white transition-colors flex flex-col items-center gap-2 group"
-                            >
-                                <span className="p-3 rounded-full bg-white/[0.03] group-hover:bg-[#0d83f2]/10 transition-colors">
-                                    <Mail className="w-5 h-5" />
-                                </span>
-                                <span className="text-xs">Email</span>
-                            </a>
-                        </div>
                     </div>
                 </AnimatedSection>
             </div>

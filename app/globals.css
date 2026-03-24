@@ -1,13 +1,115 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: #0a0a0a;
-  --color-surface: #111111;
-  --color-surface-glass: rgba(17, 17, 17, 0.6);
-  --color-primary: #0d83f2;
-  --color-primary-dark: #0a6abf;
-  --color-accent: #a855f7;
+  --color-background: #050505;
+  --color-surface: #0a0a0a;
+  --color-surface-glass: rgba(255, 255, 255, 0.05);
+  --color-primary: #c0c0c0;
+  --color-accent: #e2e2e2;
+  --color-muted: #555555;
+  --color-border: rgba(255, 255, 255, 0.08);
   --font-sans: var(--font-space-grotesk);
+  --font-mono: var(--font-space-grotesk);
+}
+
+/* ── CSS Variables for theming ───────────────────── */
+:root {
+  --bg: #050505;
+  --bg-surface: #0a0a0a;
+  --text-primary: #ffffff;
+  --text-body: #a0a0a0;
+  --text-muted: #555555;
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-hover-bg: rgba(255, 255, 255, 0.05);
+  --glass-hover-border: rgba(255, 255, 255, 0.12);
+  --selection-bg: rgba(255, 255, 255, 0.15);
+  --selection-color: #fff;
+  --scrollbar-track: #050505;
+  --scrollbar-thumb: #1a1a1a;
+  --dot-color: rgba(255, 255, 255, 0.06);
+  --glow: rgba(255, 255, 255, 0.1);
+  --header-bg: rgba(5, 5, 5, 0.7);
+  --btn-primary-bg: #ffffff;
+  --btn-primary-text: #000000;
+  --btn-secondary-bg: rgba(255, 255, 255, 0.04);
+  --btn-secondary-text: rgba(255, 255, 255, 0.7);
+  --btn-secondary-border: rgba(255, 255, 255, 0.08);
+  --tag-bg: rgba(255, 255, 255, 0.04);
+  --tag-text: rgba(255, 255, 255, 0.3);
+  --tag-border: rgba(255, 255, 255, 0.06);
+  --input-bg: rgba(255, 255, 255, 0.02);
+  --input-border: rgba(255, 255, 255, 0.06);
+  --footer-border: rgba(255, 255, 255, 0.03);
+  /* Chatbot specific */
+  --chat-fab-bg: rgba(255, 255, 255, 0.06);
+  --chat-fab-border: rgba(255, 255, 255, 0.1);
+  --chat-fab-icon: rgba(255, 255, 255, 0.5);
+  --chat-fab-hover-icon: #ffffff;
+  --chat-panel-bg: rgba(10, 10, 10, 0.95);
+  --chat-panel-border: rgba(255, 255, 255, 0.06);
+  --chat-user-bg: #ffffff;
+  --chat-user-text: #000000;
+  --chat-bot-bg: rgba(255, 255, 255, 0.04);
+  --chat-bot-text: rgba(255, 255, 255, 0.6);
+  --chat-bot-border: rgba(255, 255, 255, 0.04);
+  --chat-input-bg: rgba(255, 255, 255, 0.03);
+  --chat-input-border: rgba(255, 255, 255, 0.06);
+  --chat-input-text: #ffffff;
+  --chat-placeholder: rgba(255, 255, 255, 0.15);
+  --chat-send-bg: rgba(255, 255, 255, 0.06);
+  --chat-send-icon: rgba(255, 255, 255, 0.4);
+  --chat-ping: rgba(255, 255, 255, 0.2);
+}
+
+/* ── LIGHT THEME — Luxurious & Premium ──────────── */
+html.light {
+  --bg: #fafafa;
+  --bg-surface: #ffffff;
+  --text-primary: #0f0f0f;
+  --text-body: #4a4a4a;
+  --text-muted: #8a8a8a;
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(0, 0, 0, 0.06);
+  --glass-hover-bg: rgba(255, 255, 255, 0.85);
+  --glass-hover-border: rgba(0, 0, 0, 0.12);
+  --selection-bg: rgba(99, 102, 241, 0.2);
+  --selection-color: #111;
+  --scrollbar-track: #f5f5f5;
+  --scrollbar-thumb: #d0d0d0;
+  --dot-color: rgba(0, 0, 0, 0.04);
+  --glow: rgba(99, 102, 241, 0.08);
+  --header-bg: rgba(250, 250, 250, 0.75);
+  --btn-primary-bg: #0f0f0f;
+  --btn-primary-text: #ffffff;
+  --btn-secondary-bg: rgba(0, 0, 0, 0.03);
+  --btn-secondary-text: #555555;
+  --btn-secondary-border: rgba(0, 0, 0, 0.1);
+  --tag-bg: rgba(0, 0, 0, 0.04);
+  --tag-text: rgba(0, 0, 0, 0.45);
+  --tag-border: rgba(0, 0, 0, 0.08);
+  --input-bg: rgba(0, 0, 0, 0.02);
+  --input-border: rgba(0, 0, 0, 0.1);
+  --footer-border: rgba(0, 0, 0, 0.05);
+  /* Chatbot — dark panel on light page for contrast */
+  --chat-fab-bg: #0f0f0f;
+  --chat-fab-border: rgba(0, 0, 0, 0.2);
+  --chat-fab-icon: rgba(255, 255, 255, 0.8);
+  --chat-fab-hover-icon: #ffffff;
+  --chat-panel-bg: #0f0f0f;
+  --chat-panel-border: rgba(255, 255, 255, 0.08);
+  --chat-user-bg: #6366f1;
+  --chat-user-text: #ffffff;
+  --chat-bot-bg: rgba(255, 255, 255, 0.06);
+  --chat-bot-text: rgba(255, 255, 255, 0.7);
+  --chat-bot-border: rgba(255, 255, 255, 0.06);
+  --chat-input-bg: rgba(255, 255, 255, 0.06);
+  --chat-input-border: rgba(255, 255, 255, 0.1);
+  --chat-input-text: #ffffff;
+  --chat-placeholder: rgba(255, 255, 255, 0.25);
+  --chat-send-bg: rgba(255, 255, 255, 0.08);
+  --chat-send-icon: rgba(255, 255, 255, 0.5);
+  --chat-ping: rgba(99, 102, 241, 0.4);
 }
 
 /* ── Base ────────────────────────────────────────── */
@@ -16,48 +118,82 @@ html {
 }
 
 body {
-  background: var(--color-background);
-  color: #cbd5e1; /* slate-300 */
+  background: var(--bg);
+  color: var(--text-body);
   font-family: var(--font-sans), system-ui, sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
+  transition: background 0.5s ease, color 0.5s ease;
 }
 
 ::selection {
-  background: var(--color-primary);
-  color: #fff;
+  background: var(--selection-bg);
+  color: var(--selection-color);
 }
 
 /* ── Scrollbar ───────────────────────────────────── */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
+
 ::-webkit-scrollbar-track {
-  background: var(--color-background);
+  background: var(--scrollbar-track);
 }
+
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-primary);
+  background: var(--scrollbar-thumb);
+  border-radius: 2px;
 }
 
-/* ── Glass Card ──────────────────────────────────── */
-.glass-card {
-  background: rgba(17, 17, 17, 0.5);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  transition: border-color 0.3s ease, background 0.3s ease;
-}
-.glass-card:hover {
-  border-color: rgba(13, 131, 242, 0.25);
-  background: rgba(17, 17, 17, 0.7);
+/* ── Glassmorphism ───────────────────────────────── */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+  transition: border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* ── Dot Grid Pattern ────────────────────────────── */
+.glass:hover {
+  border-color: var(--glass-hover-border);
+  background: var(--glass-hover-bg);
+}
+
+/* Light mode glass cards get elevation shadow */
+html.light .glass {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+html.light .glass:hover {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* ── Dot Grid ────────────────────────────────────── */
 .dot-grid {
-  background-image: radial-gradient(rgba(75, 85, 99, 0.3) 1px, transparent 1px);
-  background-size: 32px 32px;
+  background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* ── Glowing text ────────────────────────────────── */
+.text-glow {
+  text-shadow: 0 0 20px var(--glow);
+}
+
+/* ── Section label ───────────────────────────────── */
+.section-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ── Training gauge ──────────────────────────────── */
+.gauge-ring {
+  transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Light mode heading accent ───────────────────── */
+html.light .text-glow {
+  text-shadow: none;
 }

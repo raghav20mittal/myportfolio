@@ -1,15 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Briefcase, CreditCard, CheckCircle2 } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 
 interface Role {
     title: string;
     company: string;
+    location: string;
     range: string;
     current: boolean;
-    icon: React.ReactNode;
     bullets: string[];
 }
 
@@ -17,35 +17,33 @@ const roles: Role[] = [
     {
         title: "CX Advisor",
         company: "ApplyBoard",
-        range: "2022 – Present",
+        location: "Gurgaon, IN",
+        range: "AUG 2025 – PRESENT",
         current: true,
-        icon: <Briefcase className="w-5 h-5 text-[#0d83f2]" />,
         bullets: [
-            "Handling manual exceptions and edge-case escalations across student application workflows.",
-            "Optimizing automation efficiency, reducing redundant manual touchpoints by streamlining internal processes.",
-            "Collaborating with cross-functional teams to improve customer onboarding and satisfaction.",
+            "Handle manual exception tasks flagged by the chatbot during student application processing.",
+            "Ensure accuracy, compliance, and timely completion of applications not fully automated.",
+            "Collaborate with teams to reduce manual interventions and improve automation efficiency.",
         ],
     },
     {
         title: "Loan Support Intern",
         company: "ApplyBoard",
-        range: "2021 – 2022",
+        location: "Gurgaon, IN",
+        range: "MAR 2025 – JUL 2025",
         current: false,
-        icon: <CreditCard className="w-5 h-5 text-slate-500" />,
         bullets: [
-            "Achieved a **40% reduction** in manual follow-ups through automated workflow implementation.",
-            "Drove a **20% reduction** in processing time by developing scripts to automate data entry tasks.",
-            "Processed high-volume financial documents with **99% accuracy**.",
+            "Built an email automation system that scans incoming mails and auto-replies to team members if required documents or information are missing, reducing manual follow-ups by **40**.",
+            "Collaborate with cross-functional teams to streamline loan processing workflows, contributing to a **20%** reduction in processing time.",
         ],
     },
 ];
 
 function renderBullet(text: string) {
-    // Simple bold markdown rendering
     const parts = text.split(/\*\*(.*?)\*\*/g);
     return parts.map((part, i) =>
         i % 2 === 1 ? (
-            <strong key={i} className="text-white">
+            <strong key={i} style={{ color: "var(--text-primary)", fontWeight: 600 }}>
                 {part}
             </strong>
         ) : (
@@ -56,61 +54,48 @@ function renderBullet(text: string) {
 
 export default function Experience() {
     return (
-        <section id="experience" className="py-24 bg-[#0d0d0d]">
+        <section id="experience" className="py-28 relative">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <AnimatedSection>
-                    <h2 className="text-3xl font-bold mb-14 text-center text-white">
-                        Professional Experience
-                    </h2>
+                    <div className="text-center mb-16">
+                        <p className="section-label mb-4">PROFESSIONAL TRAJECTORY</p>
+                        <h2 className="text-3xl sm:text-4xl font-bold text-glow" style={{ color: "var(--text-primary)" }}>
+                            Operational Experience
+                        </h2>
+                    </div>
                 </AnimatedSection>
 
-                <div className="relative">
-                    {/* Timeline line */}
-                    <div className="absolute left-[27px] top-0 bottom-0 w-px bg-white/[0.06]" />
-
+                <div className="space-y-6">
                     {roles.map((role, index) => (
                         <AnimatedSection key={role.title} delay={index * 0.15}>
                             <motion.div
                                 whileHover={{ y: -2 }}
-                                className="relative flex gap-6 sm:gap-8 mb-12 group"
+                                className="glass rounded-2xl p-6 sm:p-8"
                             >
-                                {/* Circle */}
-                                <div className="relative z-10 flex-shrink-0 w-14 h-14 rounded-full bg-[#0a0a0a] border border-white/[0.06] flex items-center justify-center group-hover:border-[#0d83f2]/40 transition-colors">
-                                    {role.icon}
+                                <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-1">
+                                    <h3 className="text-lg font-bold" style={{ color: "var(--text-primary)" }}>{role.company}</h3>
+                                    <span
+                                        className="text-[10px] font-medium tracking-[0.15em] px-3 py-1 rounded-full w-fit mt-2 sm:mt-0"
+                                        style={{ background: "var(--tag-bg)", color: "var(--text-muted)", border: `1px solid var(--tag-border)` }}
+                                    >
+                                        {role.range}
+                                    </span>
                                 </div>
+                                <p className="text-sm mb-1" style={{ color: "var(--text-muted)" }}>{role.title}</p>
+                                <p className="text-xs mb-5" style={{ color: "var(--text-muted)", opacity: 0.6 }}>{role.location}</p>
 
-                                {/* Card */}
-                                <div className="flex-grow pt-1">
-                                    <div className="glass-card p-6 rounded-xl">
-                                        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2">
-                                            <h3 className="text-xl font-bold text-white">
-                                                {role.title}
-                                            </h3>
-                                            <span
-                                                className={`text-sm font-medium px-3 py-1 rounded-full w-fit mt-2 sm:mt-0 ${role.current
-                                                        ? "bg-[#0d83f2]/10 text-[#0d83f2]"
-                                                        : "bg-white/[0.04] text-slate-400"
-                                                    }`}
-                                            >
-                                                {role.range}
-                                            </span>
-                                        </div>
-                                        <h4 className="text-base text-slate-500 mb-4">
-                                            {role.company}
-                                        </h4>
-                                        <ul className="space-y-3">
-                                            {role.bullets.map((b, i) => (
-                                                <li
-                                                    key={i}
-                                                    className="flex items-start gap-2 text-sm text-slate-400"
-                                                >
-                                                    <CheckCircle2 className="w-4 h-4 text-[#0d83f2] mt-0.5 flex-shrink-0" />
-                                                    <span>{renderBullet(b)}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </div>
+                                <ul className="space-y-3">
+                                    {role.bullets.map((b, i) => (
+                                        <li
+                                            key={i}
+                                            className="flex items-start gap-2.5 text-sm leading-relaxed"
+                                            style={{ color: "var(--text-body)" }}
+                                        >
+                                            <CheckCircle2 className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" style={{ color: "var(--text-muted)" }} />
+                                            <span>{renderBullet(b)}</span>
+                                        </li>
+                                    ))}
+                                </ul>
                             </motion.div>
                         </AnimatedSection>
                     ))}
